@@ -1,31 +1,31 @@
 all: test-labels.ark test.ark train-labels.ark train.ark
- 
- # Rules for converting to Kaldi archive format
- test-labels.ark:
- 	cd src; make
- 	.convert.pl src/test-labels test-labels.txt
- 	copy-int-vector --binary=true ark:test-labels.txt ark:test-labels.ark
- 	rm test-labels.txt 
- 
- test.ark:
- 	cd src; make
- 	.convert.pl src/test test.txt
- 	copy-feats ark:test.txt ark:test.ark
- 	rm test.txt 
- 
- train-labels.ark:
- 	cd src; make
- 	.convert.pl src/train-labels train-labels.txt
- 	copy-int-vector --binary=true ark:train-labels.txt ark:train-labels.ark
- 	rm train-labels.txt 
- 
- train.ark:
- 	cd src; make
- 	.convert.pl src/train train.txt
- 	copy-feats ark:train.txt ark:train.ark
- 	rm train.txt 
- 
- # Clean generated files
- # Note, this des not remove the source files that were fetched 
- clean:
- 	rm -f train.ark train-labels.ark test.ark test-labels.ark
+
+# Rules for converting to Kaldi archive format
+test-labels.ark:
+	cp src/test-labels test-labels
+	./convert.pl test-labels test-labels.txt
+	copy-int-vector --binary=true ark:test-labels.txt ark:test-labels.ark
+	rm test-labels.txt test-labels
+
+test.ark:
+	cp src/test test
+	./convert.pl test test.txt
+	copy-feats ark:test.txt ark:test.ark
+	rm test.txt test
+
+train-labels.ark:
+	cp src/train-labels train-labels
+	./convert.pl train-labels train-labels.txt
+	copy-int-vector --binary=true ark:train-labels.txt ark:train-labels.ark
+	rm train-labels.txt train-labels
+
+train.ark:
+	cp src/train train
+	./convert.pl train train.txt
+	copy-feats ark:train.txt ark:train.ark
+	rm train.txt train
+
+# Clean generated files
+# Note, this des not remove the source files that were fetched 
+clean:
+	rm -f train.ark train-labels.ark test.ark test-labels.ark

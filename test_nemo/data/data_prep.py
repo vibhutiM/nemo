@@ -10,7 +10,7 @@ for i in range(70000):
 	if np.sum(a**2) < 1:
 		label = 1
 	else:
-		label = -1
+		label = 0
 	data.append([x, y, label])
 
 
@@ -27,7 +27,7 @@ test_label = data[50000: ,2:].reshape((20000,1))
 if not os.path.exists('./src'):
 	os.makedirs('./src')
 
-train.astype('int16').tofile('src/train')
-test.astype('int16').tofile('src/test')
-train_label.astype('int16').tofile('src/train-labels')
-test_label.astype('int16').tofile('src/test-labels')
+train.astype('int8').tofile('src/train')
+test.astype('int8').tofile('src/test')
+train_label.astype('int8').tofile('src/train-labels')
+test_label.astype('int8').tofile('src/test-labels')
