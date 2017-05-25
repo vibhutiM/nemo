@@ -11,19 +11,23 @@ for i in range(70000):
 		label = 1
 	else:
 		label = -1
-	data.append([key, x, y, key, label])
+	data.append([x, y, label])
 
 
-data = np.array(data)
+data = np.array(data, dtype=np.int8)
 
-train = data[:50000,:3]
-test = data[50000:, :3]
-train_label = data[:50000,3:]
-test_label = data[50000: ,3:]
+train = data[:50000,:2]
+test = data[50000:, :2]
+train_label = data[:50000,2:].reshape((50000,1))
+test_label = data[50000: ,2:].reshape((20000,1))
+
+
+
 
 if not os.path.exists('./src'):
 	os.makedirs('./src')
-np.savetxt('src/train.txt', train, delimiter=' ', fmt='%s')
-np.savetxt('src/test.txt', test, delimiter=' ', fmt='%s')
-np.savetxt('src/train-labels.txt', train_label, delimiter=' ', fmt='%s')
-np.savetxt('src/test-labels.txt', test_label, delimiter=' ', fmt='%s')
+
+train.astype('int16').tofile('src/train')
+test.astype('int16').tofile('src/test')
+train_label.astype('int16').tofile('src/train-labels')
+test_label.astype('int16').tofile('src/test-labels')

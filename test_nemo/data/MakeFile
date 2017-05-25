@@ -3,23 +3,27 @@ all: test-labels.ark test.ark train-labels.ark train.ark
  # Rules for converting to Kaldi archive format
  test-labels.ark:
  	cd src; make
+ 	.convert.pl src/test-labels test-labels.txt
  	copy-int-vector --binary=true ark:test-labels.txt ark:test-labels.ark
- 	rm test-labels.txt t10k-labels-idx1-ubyte
+ 	rm test-labels.txt 
  
  test.ark:
  	cd src; make
+ 	.convert.pl src/test test.txt
  	copy-feats ark:test.txt ark:test.ark
- 	rm test.txt t10k-images-idx3-ubyte
+ 	rm test.txt 
  
  train-labels.ark:
  	cd src; make
+ 	.convert.pl src/train-labels train-labels.txt
  	copy-int-vector --binary=true ark:train-labels.txt ark:train-labels.ark
- 	rm train-labels.txt train-labels-idx1-ubyte
+ 	rm train-labels.txt 
  
  train.ark:
  	cd src; make
+ 	.convert.pl src/train train.txt
  	copy-feats ark:train.txt ark:train.ark
- 	rm train.txt train-images-idx3-ubyte
+ 	rm train.txt 
  
  # Clean generated files
  # Note, this des not remove the source files that were fetched 
